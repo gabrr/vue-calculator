@@ -1,0 +1,71 @@
+<template>
+  <div id="gabrr-calculator">
+      <div class="result">
+          0
+      </div>
+      <div id="numbers-pad">
+         <ul>
+             <li class="num-pad" value="1">1</li>
+             <li class="num-pad" value="2">2</li>
+             <li class="num-pad" value="3">3</li>
+             <li class="num-pad" value="4">4</li>
+             <li class="num-pad" value="5">5</li>
+             <li class="num-pad" value="6">6</li>
+             <li class="num-pad" value="7">7</li>
+             <li class="num-pad" value="8">8</li>
+             <li class="num-pad" value="9">9</li>
+             <li class="num-pad" value="0">0</li>
+             <li class="num-pad" value="000">000</li>
+             <li class="num-pad" style="background-color: rgba(255, 0, 0, 0.65)" value="erase">C</li>
+         </ul>
+      </div>
+      <div id="operations">
+          <ul>
+              <li>+</li>
+              <li>-</li>
+              <li>X</li>
+              <li>%</li>
+          </ul>
+      </div>
+  </div>
+</template>
+
+<script>
+export default {
+    name: "numCalculator"
+}
+</script>
+
+<style scoped>
+    ul{
+        list-style: none;
+    }
+    #gabrr-calculator{
+        max-width: 450px;
+        width: 100%;
+        margin: auto;
+        text-align: center;
+    }
+
+    #numbers-pad ul{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 5px;
+    }
+
+    .num-pad{
+        background-color: rgba(255, 255, 255, 0.65);
+        border-radius: 5px;
+        padding: 30px 0;
+    }
+
+    #operations ul{
+        display: flex;
+        margin: auto;
+        place-content: center;
+    }
+    #operations li{
+        margin: 0 10%;
+    }
+
+</style>
