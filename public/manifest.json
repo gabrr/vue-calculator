@@ -1,0 +1,14 @@
+{
+    "short_name": "gabrr++",
+    "name": "gabrr calculator",
+    "icons": [{
+        "src": "/favicon.ico",
+        "type": "image/ico",
+        "sizes": "192x192"
+    }],
+    "start_url": "./",
+    "background_color": "#000",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#000"
+}
