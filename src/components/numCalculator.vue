@@ -42,7 +42,7 @@ export default {
     }
     #gabrr-calculator{
         max-width: 450px;
-        width: 100%;
+        width: 95%;
         margin: auto;
         text-align: center;
     }
@@ -50,22 +50,25 @@ export default {
     #numbers-pad ul{
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        grid-gap: 5px;
+        grid-gap: 2px;
     }
 
     .num-pad{
-        background-color: rgba(255, 255, 255, 0.65);
-        border-radius: 5px;
-        padding: 30px 0;
+        background-color: rgba(39, 39, 39, 0.65);
+        padding: 20px 0;
     }
 
     #operations ul{
         display: flex;
         margin: auto;
         place-content: center;
+        margin: 10px 0;
     }
     #operations li{
-        margin: 0 10%;
+        padding: 20px 10%;
+    }
+    .result{
+        margin-bottom: 20px;
     }
 
 </style>
