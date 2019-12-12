@@ -1,11 +1,11 @@
 <template>
   <div id="gabrr-calculator">
       <div class="result">
-          0
+          {{result}}
       </div>
       <div id="numbers-pad">
          <ul>
-             <li class="num-pad" value="1">1</li>
+             <li class="num-pad" @click="result + 1" value="1">1</li>
              <li class="num-pad" value="2">2</li>
              <li class="num-pad" value="3">3</li>
              <li class="num-pad" value="4">4</li>
@@ -32,7 +32,14 @@
 
 <script>
 export default {
-    name: "numCalculator"
+    el: "#gabrr-calculator",
+    name: "numCalculator",
+    data() {
+        return {
+            line: 0,
+            result: 0
+        }
+    }
 }
 </script>
 
