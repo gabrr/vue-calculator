@@ -78,20 +78,22 @@ export default {
 
  
                 const res = numbersGroup.reduce((prev, curr) => {
-                    if(operator[0] === "+") {
-                        return this.adding(parseInt(prev), parseFloat(curr))
-                    }
-                    if(operator[0] === "-") {
-                        return this.minus(parseInt(prev), parseFloat(curr))
-                    }
-                    if(operator[0] === "÷") {
-                        return this.dividing(parseInt(prev), parseFloat(curr))
-                    }
-                    if(operator[0] === "*") {
-                        return this.times(parseInt(prev), parseFloat(curr))
-                    }
-                    if(operator[0] === ":-(") {
-                        return this.removing(prev, curr);
+                    for(let sign of operator) {
+                        if(sign === "+") {
+                            return this.adding(parseInt(prev), parseFloat(curr))
+                        }
+                        if(sign === "-") {
+                            return this.minus(parseInt(prev), parseFloat(curr))
+                        }
+                        if(sign === "÷") {
+                            return this.dividing(parseInt(prev), parseFloat(curr))
+                        }
+                        if(sign === "*") {
+                            return this.times(parseInt(prev), parseFloat(curr))
+                        }
+                        if(sign === ":-(") {
+                            return this.removing(prev, curr);
+                        }
                     }
                 })
                 
