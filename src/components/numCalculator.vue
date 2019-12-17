@@ -1,30 +1,26 @@
 <template>
   <div id="gabrr-calculator">
       <div class="result">
-          {{result}}
+          {{display}}
       </div>
       <div id="numbers-pad">
          <ul>
-             <li class="num-pad" @click="result + 1" value="1">1</li>
-             <li class="num-pad" value="2">2</li>
-             <li class="num-pad" value="3">3</li>
-             <li class="num-pad" value="4">4</li>
-             <li class="num-pad" value="5">5</li>
-             <li class="num-pad" value="6">6</li>
-             <li class="num-pad" value="7">7</li>
-             <li class="num-pad" value="8">8</li>
-             <li class="num-pad" value="9">9</li>
-             <li class="num-pad" value="0">0</li>
-             <li class="num-pad" value="000">000</li>
-             <li class="num-pad" style="background-color: rgba(255, 0, 0, 0.65)" value="erase">C</li>
+            <li class="num-pad" @click="padClicked" value="ac">ac</li>
+            <li class="num-pad" @click="padClicked" value="delete">:-(</li>
+            <li class="num-pad" @click="padClicked" value="%">%</li>
+            <li v-bind:key="num" v-for="num in one" class="num-pad" v-bind:value="num" @click="padClicked">{{num}}</li>
+            <li class="num-pad" @click="padClicked" value="0">0</li>
+            <li class="num-pad" @click="padClicked" value="000">000</li>
+            <li class="num-pad" @click="padClicked" value=",">,</li>
          </ul>
       </div>
-      <div id="operations">
+      <div id="operators">
           <ul>
-              <li>+</li>
-              <li>-</li>
-              <li>X</li>
-              <li>%</li>
+            <li class="num-pad" @click="padClicked" value="÷">÷</li>
+            <li class="num-pad" @click="padClicked" value="*">*</li>
+            <li class="num-pad" @click="padClicked" value="-">-</li>
+            <li class="num-pad" @click="padClicked" value="+">+</li>
+            <li class="num-pad get-result" @click="padClicked" value="=">=</li>
           </ul>
       </div>
   </div>
@@ -32,12 +28,81 @@
 
 <script>
 export default {
-    el: "#gabrr-calculator",
     name: "numCalculator",
     data() {
         return {
-            line: 0,
-            result: 0
+            display: 0,
+            one: [3, 2, 1, 6, 5, 4, 9, 8, 7].reverse()
+        }
+    },
+    methods: {
+        adding: function(num1, num2) {
+            return num1 + num2;
+        },
+        removing: function(num1, num2) {
+            return num1 += num2.slice(0, -1);
+        },
+        minus: function(num1, num2) {
+            return num1 - num2;
+        },
+        dividing: function(num1, num2) {
+            return num1 / num2;
+        },
+        times: function(num1, num2) {
+            return num1 * num2;
+        },
+        padClicked: function(num) {
+            if(this.display === 0) {
+                this.display = "";
+            } 
+            if(num.target.innerText === "ac") {
+                this.display = 0
+            }
+            else if(parseInt(num.target.value)){
+                this.display += num.target.innerText;
+            } 
+            else if(num.target.innerText === "=") {
+                let numbersGroup = [[]];
+                let operator = [];
+                let index = 0;
+
+                for(let i = 0; i < this.display.length; i++) {
+                    if(/[0-9]/.test(this.display[i])) {
+                        numbersGroup[index] += this.display[i]
+                    } else {
+                        operator.push(this.display[i])
+                        index += 1
+                        numbersGroup[index] = []
+                    }
+                }
+
+ 
+                const res = numbersGroup.reduce((prev, curr) => {
+                    if(operator[0] === "+") {
+                        return this.adding(parseInt(prev), parseFloat(curr))
+                    }
+                    if(operator[0] === "-") {
+                        return this.minus(parseInt(prev), parseFloat(curr))
+                    }
+                    if(operator[0] === "÷") {
+                        return this.dividing(parseInt(prev), parseFloat(curr))
+                    }
+                    if(operator[0] === "*") {
+                        return this.times(parseInt(prev), parseFloat(curr))
+                    }
+                    if(operator[0] === ":-(") {
+                        return this.removing(prev, curr);
+                    }
+                })
+                
+
+                this.display = parseFloat(res);
+                // window.console.log(res)
+
+            }
+            else if(num.target.innerText) {
+                this.display += num.target.innerText;
+            } 
         }
     }
 }
@@ -49,33 +114,53 @@ export default {
     }
     #gabrr-calculator{
         max-width: 450px;
-        width: 95%;
+        width: 90%;
         margin: auto;
         text-align: center;
     }
 
+    .result{
+        margin-bottom: 20px;
+    }
+
     #numbers-pad ul{
+        width: 75%;
+        float: left;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         grid-gap: 2px;
     }
 
     .num-pad{
-        background-color: rgba(39, 39, 39, 0.65);
-        padding: 20px 0;
+        padding: 20px 20px;
     }
 
-    #operations ul{
-        display: flex;
-        margin: auto;
-        place-content: center;
-        margin: 10px 0;
+    #operators{
+        float: right;
+        width: 25%;
     }
-    #operations li{
-        padding: 20px 10%;
+    #operators li{
+        margin-bottom: 2px;
     }
-    .result{
-        margin-bottom: 20px;
+    .get-result{
+        position: relative;
     }
+    .get-result::before{
+        content: "";
+        z-index: -1;
+        width: 50px;
+        height: 80%;
+        position: absolute;
+        background-image: linear-gradient(#D32121, #CB522C);
+        box-shadow: 0 0 42px -1px #E26017;
+        border-radius: 50%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+
+    }
+
 
 </style>
+
