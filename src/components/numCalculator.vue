@@ -39,8 +39,8 @@ export default {
         adding: function(num1, num2) {
             return num1 + num2;
         },
-        removing: function(num1, num2) {
-            return num1 += num2.slice(0, -1);
+        removing: function(string) {
+            return string.slice(0, -1);
         },
         minus: function(num1, num2) {
             return num1 - num2;
@@ -61,6 +61,13 @@ export default {
             else if(parseInt(num.target.value)){
                 this.display += num.target.innerText;
             } 
+            else if(num.target.innerText === ":-(") {
+                if(this.display.length <= 1) {
+                    this.display = 0;
+                } else {
+                    this.display = this.removing(this.display);    
+                }
+            }
             else if(num.target.innerText === "=") {
                 let numbersGroup = [[]];
                 let operator = [];
@@ -90,9 +97,6 @@ export default {
                         }
                         if(sign === "*") {
                             return this.times(parseInt(prev), parseFloat(curr))
-                        }
-                        if(sign === ":-(") {
-                            return this.removing(prev, curr);
                         }
                     }
                 })
