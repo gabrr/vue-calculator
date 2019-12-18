@@ -18,6 +18,8 @@ export default {
 <style scoped>
 #navbar{
     width: 100%;
+    max-width: 450px;
+    margin: auto;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
