@@ -135,9 +135,8 @@ export default {
     #gabrr-calculator{
         max-width: 450px;
         width: 90%;
-        margin: auto;
+        margin: 9vh auto;
         text-align: center;
-        margin-top: 12%;
     }
 
     .result{
