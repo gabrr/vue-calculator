@@ -11,7 +11,7 @@
             <li v-bind:key="num" v-for="num in one" class="num-pad" v-bind:value="num" @click="padClicked">{{num}}</li>
             <li class="num-pad" @click="padClicked" value="0">0</li>
             <li class="num-pad" @click="padClicked" value="000">000</li>
-            <li class="num-pad" @click="padClicked" value=",">,</li>
+            <li class="num-pad" @click="padClicked" value=".">.</li>
          </ul>
       </div>
       <div id="operators">
@@ -20,7 +20,7 @@
             <li class="num-pad" @click="padClicked" value="*">*</li>
             <li class="num-pad" @click="padClicked" value="-">-</li>
             <li class="num-pad" @click="padClicked" value="+">+</li>
-            <li class="num-pad get-result" @click="padClicked" value="=">=</li>
+            <li class="num-pad get-result blur" @click="padClicked" value="=">=</li>
           </ul>
       </div>
   </div>
@@ -36,11 +36,14 @@ export default {
         }
     },
     methods: {
-        adding: function(num1, num2) {
-            return num1 + num2;
-        },
         removing: function(string) {
             return string.slice(0, -1);
+        },
+        percentage: function(num1) {
+            return num1 / 100;
+        },
+        adding: function(num1, num2) {
+            return num1 + num2;
         },
         minus: function(num1, num2) {
             return num1 - num2;
@@ -74,7 +77,7 @@ export default {
                 let index = 0;
 
                 for(let i = 0; i < this.display.length; i++) {
-                    if(/[0-9]/.test(this.display[i])) {
+                    if(/[0-9]/.test(this.display[i]) || this.display[i] === ".") {
                         numbersGroup[index] += this.display[i]
                     } else {
                         operator.push(this.display[i])
@@ -87,23 +90,34 @@ export default {
                 const res = numbersGroup.reduce((prev, curr) => {
                     for(let sign of operator) {
                         if(sign === "+") {
-                            return this.adding(parseInt(prev), parseFloat(curr))
+                            return this.adding(parseFloat(prev), parseFloat(curr))
                         }
                         if(sign === "-") {
-                            return this.minus(parseInt(prev), parseFloat(curr))
+                            return this.minus(parseFloat(prev), parseFloat(curr))
                         }
                         if(sign === "÷") {
-                            return this.dividing(parseInt(prev), parseFloat(curr))
+                            return this.dividing(parseFloat(prev), parseFloat(curr))
                         }
                         if(sign === "*") {
-                            return this.times(parseInt(prev), parseFloat(curr))
+                            return this.times(parseFloat(prev), parseFloat(curr))
+                        }
+                        if(sign === "%") {
+                            return this.percentage(parseFloat(prev))
                         }
                     }
                 })
                 
 
-                this.display = parseFloat(res);
+                window.localStorage[this.display] = `${this.display} = ${parseFloat(res)}`;
+                this.display = `${this.display} = ${parseFloat(res)}`;
                 // window.console.log(res)
+
+
+                // effects when click equal sign
+                num.target.classList.remove("blur");
+                setTimeout(() => {
+                    num.target.classList.add("blur")
+                }, 150)
 
             }
             else if(num.target.innerText) {
@@ -123,10 +137,11 @@ export default {
         width: 90%;
         margin: auto;
         text-align: center;
+        margin-top: 12%;
     }
 
     .result{
-        margin-bottom: 20px;
+        margin-bottom: 15%;
     }
 
     #numbers-pad ul{
@@ -147,6 +162,8 @@ export default {
     }
     #operators li{
         margin-bottom: 2px;
+        font-size: 122%;
+        padding: 17.5px 20px;
     }
     .get-result{
         position: relative;
@@ -157,14 +174,15 @@ export default {
         width: 50px;
         height: 80%;
         position: absolute;
+        transition: box-shadow 200ms ease-in-out;
         background-image: linear-gradient(#D32121, #CB522C);
-        box-shadow: 0 0 42px -1px #E26017;
         border-radius: 50%;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-
-
+    }
+    .get-result.blur::before{
+        box-shadow: 0 0 42px -1px #E26017;
     }
 
 
