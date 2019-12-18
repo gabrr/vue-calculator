@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-    <num-calculator/>
+    <navbar />
+    <numCalculator/>
   </div>
 </template>
 
 <script>
 import numCalculator from './components/numCalculator.vue';
+import navbar from "./components/navbar.vue";
 
 export default {
   name: 'app',
   components: {
-    numCalculator
+    numCalculator,
+    navbar
   }
 }
 </script>
@@ -30,6 +33,6 @@ body{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: rgba(255, 255, 255, 1);
-  margin-top: 60px;
+  min-height: 550px;
 }
 </style>
