@@ -38,7 +38,7 @@ export default {
 }
 
 .logo{
-    margin-top: 5%;
+    margin-top: 1vh;
     grid-column: span 2;
     grid-row: 2;
     font-weight: 600;

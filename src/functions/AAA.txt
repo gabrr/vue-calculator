@@ -1,0 +1,5 @@
+In order to make easy to add, remove and modify each function of the calculator
+all the functions are spread out. 
+
+There is a index in this folder in which every function must be in, 
+if it is supposed to be used in any vue component.

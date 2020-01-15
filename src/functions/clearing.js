@@ -1,0 +1,1 @@
+export const clearing = () => window.console.log("its working clearing up")
