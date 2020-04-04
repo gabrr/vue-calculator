@@ -27,22 +27,28 @@
 </template>
 
 <script>
-import funcs from "../functions/"
+// import funcs from "../functions/"
 
 export default {
     name: "numCalculator",
     data() {
         return {
             display: 0,
-            one: [3, 2, 1, 6, 5, 4, 9, 8, 7].reverse()
+            one: [3, 2, 1, 6, 5, 4, 9, 8, 7].reverse(),
+            history: ["0"]
         }
     },
     mounted() {
-        funcs.typing()
+        this.updating()
     },
     methods: {
         updating: function() {
-            this.display += funcs.typing()
+            document.addEventListener("keypress", e => {
+                if(/0-9\W/i.test(e.key)) {
+                    window.console.log("regex working")
+                }
+                this.display += e.key
+            })
         }
     },
 }
