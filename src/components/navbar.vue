@@ -11,7 +11,7 @@
 
 <script>
 export default {
-    name: "navbar"
+    name: "Navbar"
 }
 </script>
 
@@ -22,6 +22,7 @@ export default {
     margin: auto;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    color: #fff;
 }
 
 .historyLink {

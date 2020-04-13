@@ -30,7 +30,7 @@
 // import funcs from "../functions/"
 
 export default {
-    name: "numCalculator",
+    name: "NumCalculator",
     data() {
         return {
             display: 0,
@@ -63,6 +63,7 @@ export default {
         width: 90%;
         margin: 8vh auto;
         text-align: center;
+        color: #fff;
     }
 
     .result{
